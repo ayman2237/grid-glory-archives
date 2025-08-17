@@ -2,41 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Racing Heritage Design System - Vintage F1 Aesthetics */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Racing Heritage Color Palette */
+    --background: 15 8% 8%; /* Deep racing black */
+    --foreground: 0 0% 95%; /* Racing white */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 15 10% 12%; /* Dark carbon fiber */
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 15 10% 10%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Racing Colors */
+    --racing-red: 0 85% 55%; /* Ferrari red */
+    --racing-green: 120 45% 25%; /* British racing green */
+    --monaco-blue: 215 85% 45%; /* Monaco blue */
+    --vintage-gold: 45 85% 55%; /* Vintage gold */
+    --checkered-black: 0 0% 5%;
+    --checkered-white: 0 0% 95%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --primary: var(--racing-red);
+    --primary-foreground: var(--checkered-white);
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --secondary: 15 15% 18%; /* Dark metallic */
+    --secondary-foreground: 0 0% 90%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 15 8% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: var(--vintage-gold);
+    --accent-foreground: var(--checkered-black);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --radius: 0.5rem;
+    --border: 15 15% 20%;
+    --input: 15 15% 18%;
+    --ring: var(--racing-red);
+
+    --radius: 0.25rem;
+
+    /* Racing Gradients */
+    --gradient-racing: linear-gradient(135deg, hsl(var(--racing-red)), hsl(var(--vintage-gold)));
+    --gradient-checkered: linear-gradient(45deg, hsl(var(--checkered-black)) 25%, transparent 25%), 
+                          linear-gradient(-45deg, hsl(var(--checkered-black)) 25%, transparent 25%), 
+                          linear-gradient(45deg, transparent 75%, hsl(var(--checkered-black)) 75%), 
+                          linear-gradient(-45deg, transparent 75%, hsl(var(--checkered-black)) 75%);
+    --gradient-speed: linear-gradient(90deg, hsl(var(--racing-red)), hsl(var(--monaco-blue)), hsl(var(--racing-green)));
+    --gradient-vintage: linear-gradient(135deg, hsl(var(--vintage-gold)), hsl(15 25% 25%));
+
+    /* Racing Shadows */
+    --shadow-racing: 0 10px 30px -10px hsl(var(--racing-red) / 0.4);
+    --shadow-glow: 0 0 40px hsl(var(--vintage-gold) / 0.3);
+    --shadow-inset: inset 0 2px 4px hsl(var(--checkered-black) / 0.2);
+
+    /* Racing Animations */
+    --transition-speed: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-racing: all 0.2s ease-out;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +128,78 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Racing Typography Classes */
+  .font-racing {
+    font-family: 'Bebas Neue', cursive;
+  }
+
+  .font-display {
+    font-family: 'Oswald', sans-serif;
+  }
+
+  /* Racing Effect Classes */
+  .gradient-racing {
+    background: var(--gradient-racing);
+  }
+
+  .gradient-speed {
+    background: var(--gradient-speed);
+  }
+
+  .gradient-vintage {
+    background: var(--gradient-vintage);
+  }
+
+  .shadow-racing {
+    box-shadow: var(--shadow-racing);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .transition-racing {
+    transition: var(--transition-racing);
+  }
+
+  .racing-stripes {
+    background-image: 
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        hsl(var(--racing-red) / 0.1) 10px,
+        hsl(var(--racing-red) / 0.1) 20px
+      );
+  }
+
+  .checkered-pattern {
+    background-image: var(--gradient-checkered);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  }
+}
+
+@layer components {
+  .racing-card {
+    @apply bg-card border border-border rounded-lg p-6 shadow-racing transition-racing hover:shadow-glow;
+  }
+
+  .racing-button {
+    @apply font-display font-bold tracking-wider uppercase;
+  }
+
+  .vintage-heading {
+    @apply font-racing text-4xl md:text-6xl lg:text-7xl tracking-tight;
+  }
+
+  .racing-grid {
+    background-image: 
+      linear-gradient(hsl(var(--border)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px);
+    background-size: 20px 20px;
   }
 }
